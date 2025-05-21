@@ -48,7 +48,7 @@ export class TaskListComponent implements OnInit {
       { id: 10, taskname: 'Task 10', description: 'description 10', deadlines: new Date('10-10-2024'), priorities: 'High', attachments: [] }
     ];
     console.log(this.taskList);
-  }
+  }       // Initialize the task list with some sample data
 
   
   deleteTask(idToDelete: number): void {
