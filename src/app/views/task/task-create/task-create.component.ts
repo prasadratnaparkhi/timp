@@ -4,7 +4,7 @@ import {
   ModalBodyComponent,
   ModalComponent,
   ModalFooterComponent,
-  ModalHeaderComponent,
+  ModalHeaderComponent, 
   ModalTitleDirective,
   RowComponent,
   ColComponent,
