@@ -15,12 +15,12 @@ import {
   FormControlDirective,
   FormDirective,
   FormLabelDirective,
-  FormSelectDirective, // Added for the <select> element
+  FormSelectDirective, 
   ButtonDirective
 } from '@coreui/angular';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RestApiService } from '../../../services/rest.api.service';
-import { HttpHeaders } from '@angular/common/http'; // Import HttpHeaders for content type
+import { HttpHeaders } from '@angular/common/http'; 
 
 @Component({
   selector: 'app-task-create',
@@ -43,7 +43,7 @@ import { HttpHeaders } from '@angular/common/http'; // Import HttpHeaders for co
     FormControlDirective,
     FormDirective,
     FormLabelDirective,
-    FormSelectDirective, // Make sure to include this in imports for <select>
+    FormSelectDirective, 
     ButtonDirective,
   ],
   templateUrl: './task-create.component.html',
@@ -52,6 +52,7 @@ import { HttpHeaders } from '@angular/common/http'; // Import HttpHeaders for co
 export class TaskCreateComponent {
 
   taskForm = {
+    taskname: 'task name here',
     description: 'description here',
     deadlines: '',
     priorities: '',
@@ -64,11 +65,11 @@ export class TaskCreateComponent {
   constructor(public restApi: RestApiService) {
   }
 
-  // Method to handle file selection
+  
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files) {
-      this.selectedFiles = Array.from(input.files); // Convert FileList to an array of Files
+      this.selectedFiles = Array.from(input.files); 
       console.log('Selected Files:', this.selectedFiles);
     }
   }
@@ -81,6 +82,7 @@ export class TaskCreateComponent {
     const formData = new FormData();
 
     // Append text fields from taskForm
+    formData.append('taskname', this.taskForm.taskname);
     formData.append('description', this.taskForm.description);
     formData.append('deadlines', this.taskForm.deadlines);
     formData.append('priorities', this.taskForm.priorities);
@@ -88,19 +90,16 @@ export class TaskCreateComponent {
     // Append each selected file
     this.selectedFiles.forEach((file, index) => {
       formData.append(`attachments[${index}]`, file, file.name); // Use an array-like name for backend parsing
-      // Or simply: formData.append('attachments', file, file.name); if backend expects multiple fields with same name
+      
     });
 
-    // Note: When sending FormData, DO NOT manually set 'Content-Type': 'multipart/form-data'
-    // The browser sets it automatically, including the boundary, which is crucial.
-    // If you explicitly set it, you'll likely run into issues.
-
+    
     this.restApi.postAPI('/task/create', formData).subscribe(
       data => {
         console.log('Upload Success:', data);
         this.visible = true;
         // Optionally reset the form and files after successful submission
-        this.taskForm = { description: '', deadlines: '', priorities: '' };
+        this.taskForm = { taskname: '', description: '', deadlines: '', priorities: '' };
         this.selectedFiles = []; // Clear selected files
         // Optionally reset the file input visually (if needed, but not strictly necessary as new selection will overwrite)
         const fileInput = document.getElementById('attachments') as HTMLInputElement;

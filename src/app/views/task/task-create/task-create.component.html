@@ -6,6 +6,10 @@
     <c-card-body>
       <form class="row g-3" (ngSubmit)="onSubmit()">
         <c-col md="12">
+          <label cLabel for="taskname"> Task Name </label>
+          <input cFormControl id="taskname" type="text" [(ngModel)]="taskForm.taskname" name="taskname" />
+        </c-col>
+        <c-col md="12">
           <label cLabel for="description"> Description </label>
           <input cFormControl id="description" type="text" [(ngModel)]="taskForm.description" name="description" />
         </c-col>

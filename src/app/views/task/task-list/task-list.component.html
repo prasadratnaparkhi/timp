@@ -8,6 +8,7 @@
         <thead>
           <tr>
             <th scope="col">#ID</th>
+            <th scope="col">Task Name</th>
             <th scope="col">Description</th>
             <th scope="col">Deadlines</th>
             <th scope="col">Priorities</th>
@@ -17,6 +18,7 @@
         <tbody>
           <tr *ngFor="let task of taskList">
             <td>{{ task.id }}</td>
+            <td>{{ task.taskname }}</td>
             <td>{{ task.description }}</td>
             <td>{{ task.deadlines | date:'shortDate' }}</td> <td>{{ task.priorities }}</td>
             <td>
